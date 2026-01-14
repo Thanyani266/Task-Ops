@@ -1,0 +1,12 @@
+grafana:
+  containerSecurityContext:
+    privileged: true
+    allowPrivilegeEscalation: true
+  podSecurityContext:
+    fsGroup: 472
+    runAsUser: 472
+  securityContext:
+    privileged: true
+
+nodeExporter:
+  enabled: false

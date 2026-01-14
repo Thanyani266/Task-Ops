@@ -1,6 +1,9 @@
 ---
-# MicroK8s has built-in Helm (helm3)
-# Use that instead of installing Helm system-wide.
+- name: Copy Helm override file for monitoring
+  copy:
+    src: grafana-values.yaml
+    dest: /tmp/grafana-values.yaml
+  become: yes
 
 - name: Add Prometheus repo to MicroK8s Helm
   command: microk8s helm3 repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -10,8 +13,10 @@
   command: microk8s helm3 repo update
   become: yes
 
-- name: Install kube-prometheus-stack via MicroK8s Helm
+- name: Install kube-prometheus-stack with overrides (WSL2-friendly)
   command: >
     microk8s helm3 install monitoring prometheus-community/kube-prometheus-stack
-    --namespace monitoring --create-namespace
+    --namespace monitoring
+    --create-namespace
+    -f /tmp/grafana-values.yaml
   become: yes
