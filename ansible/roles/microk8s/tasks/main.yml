@@ -14,7 +14,7 @@
 
 - name: Add current user to microk8s group
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_facts['env']['USER'] }}"
     groups: microk8s
     append: yes
   become: yes
