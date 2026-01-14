@@ -1,21 +1,17 @@
 ---
-- name: Install Helm
-  apt:
-    name: helm
-    state: present
-    update_cache: yes
-  become: yes
+# MicroK8s has built-in Helm (helm3)
+# Use that instead of installing Helm system-wide.
 
-- name: Add Prometheus repo
-  command: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+- name: Add Prometheus repo to MicroK8s Helm
+  command: microk8s helm3 repo add prometheus-community https://prometheus-community.github.io/helm-charts
   become: yes
 
 - name: Update Helm repos
-  command: helm repo update
+  command: microk8s helm3 repo update
   become: yes
 
-- name: Install kube-prometheus-stack
+- name: Install kube-prometheus-stack via MicroK8s Helm
   command: >
-    helm install monitoring prometheus-community/kube-prometheus-stack
+    microk8s helm3 install monitoring prometheus-community/kube-prometheus-stack
     --namespace monitoring --create-namespace
   become: yes
