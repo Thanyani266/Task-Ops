@@ -1,0 +1,11 @@
+---
+- hosts: masters
+  become: yes
+  roles:
+    - hardening
+    - containerd
+    - microk8s
+    - argocd
+    - ingress
+    - monitoring
+    - sops

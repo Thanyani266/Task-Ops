@@ -1,0 +1,21 @@
+---
+- name: Install Helm
+  apt:
+    name: helm
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Add Prometheus repo
+  command: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  become: yes
+
+- name: Update Helm repos
+  command: helm repo update
+  become: yes
+
+- name: Install kube-prometheus-stack
+  command: >
+    helm install monitoring prometheus-community/kube-prometheus-stack
+    --namespace monitoring --create-namespace
+  become: yes

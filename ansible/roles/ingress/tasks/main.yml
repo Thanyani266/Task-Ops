@@ -1,0 +1,10 @@
+---
+- name: Enable NGINX ingress controller
+  command: microk8s enable ingress
+  become: yes
+
+- name: Wait for ingress controller
+  shell: >
+    microk8s kubectl rollout status deployment/nginx-ingress-microk8s-controller
+    -n ingress --timeout=120s
+  become: yes
