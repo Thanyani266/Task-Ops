@@ -13,7 +13,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/argoproj/argo-cd.git
-    targetRevision: stable
+    targetRevision: v3.2.4
     path: manifests/core
   destination:
     server: https://kubernetes.default.svc
